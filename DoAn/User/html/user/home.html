@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chủ</title>
+</head>
+
+<body>
+
+    <h1>Trang chủ</h1>
+
+
+    {% if user.is_authenticated %}
+
+        <h2>
+            Xin chào {{ user.username }}!
+        </h2>
+
+        <p>
+            Email: {{ user.email }}
+        </p>
+
+        <a href="{% url 'logout' %}">
+            Đăng xuất
+        </a>
+
+    {% else %}
+
+        <p>
+            Bạn chưa đăng nhập.
+        </p>
+
+        <a href="{% url 'login' %}">
+            Đăng nhập
+        </a>
+
+        <br>
+
+        <a href="{% url 'register' %}">
+            Đăng ký
+        </a>
+
+    {% endif %}
+
+
+</body>
+</html>
