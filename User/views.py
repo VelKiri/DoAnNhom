@@ -76,3 +76,5 @@ def logout_view(request):
 
 def home(request):
     return render(request, "user/home.html")
+def password_reset_complete(request):
+    return redirect("login")

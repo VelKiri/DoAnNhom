@@ -1,58 +1,129 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
-    <title>Đăng ký</title>
+    <title>Create Account</title>
+
+    <link rel="stylesheet" href="{% static 'user/style.css' %}">
 </head>
 
 <body>
 
-<h2>Đăng ký tài khoản</h2>
+<div class="container">
 
-{% if messages %}
-    {% for message in messages %}
-        <p>{{ message }}</p>
-    {% endfor %}
-{% endif %}
+    <!-- Nút quay lại -->
+    <a href="{% url 'login' %}" class="back">
+        ←
+    </a>
 
-<form method="POST">
-    {% csrf_token %}
+    <!-- Tiêu đề -->
+    <h2>Create Account</h2>
 
-    <div>
-        <label>Tên đăng nhập</label>
-        <input type="text" name="username" required>
+    <p class="description">
+        Create a new account to get started and enjoy
+        seamless access to our features.
+    </p>
+
+    <!-- Thông báo -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Form đăng ký -->
+    <form method="POST" action="/api/auth/register/">
+
+        {% csrf_token %}
+
+        <!-- Tên đăng nhập -->
+        <div class="form-group">
+            <div class="input-box">
+
+                <span class="input-icon">●</span>
+
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Name"
+                    required
+                >
+
+            </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+            <div class="input-box">
+
+                <span class="input-icon">✉</span>
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Email address"
+                    required
+                >
+
+            </div>
+        </div>
+
+        <!-- Mật khẩu -->
+        <div class="form-group">
+            <div class="input-box">
+
+                <span class="input-icon">🔒</span>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    required
+                >
+
+            </div>
+        </div>
+
+        <!-- Nhập lại mật khẩu -->
+        <div class="form-group">
+            <div class="input-box">
+
+                <span class="input-icon">🔒</span>
+
+                <input
+                    type="password"
+                    name="password2"
+                    placeholder="Confirm Password"
+                    required
+                >
+
+            </div>
+        </div>
+
+        <!-- Nút đăng ký -->
+        <button class="btn" type="submit">
+            Create Account
+        </button>
+
+    </form>
+
+    <!-- Link đăng nhập -->
+    <div class="link">
+
+        Already have an account?
+
+        <a href="{% url 'login' %}">
+            Log in
+        </a>
+
     </div>
 
-    <br>
-
-    <div>
-        <label>Email</label>
-        <input type="email" name="email" required>
-    </div>
-
-    <br>
-
-    <div>
-        <label>Mật khẩu</label>
-        <input type="password" name="password" required>
-    </div>
-
-    <br>
-
-    <div>
-        <label>Nhập lại mật khẩu</label>
-        <input type="password" name="password2" required>
-    </div>
-
-    <br>
-
-    <button type="submit">Đăng ký</button>
-</form>
-
-<p>
-    Đã có tài khoản?
-    <a href="{% url 'login' %}">Đăng nhập</a>
-</p>
+</div>
 
 </body>
 </html>
