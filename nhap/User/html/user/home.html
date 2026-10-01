@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+    <link rel="stylesheet" href="{% static 'user/style.css' %}">
+</head>
+
+<body>
+
+<div class="container home-container">
+
+    <h2>Welcome!</h2>
+
+    <p class="description">
+        Welcome to your account.
+        You have successfully logged in.
+    </p>
+
+    <div class="home-user">
+        <div class="home-icon">
+            👋
+        </div>
+
+        <h3>Xin chào!</h3>
+
+        {% if user.is_authenticated %}
+            <p>
+                Bạn đã đăng nhập thành công.
+            </p>
+        {% endif %}
+    </div>
+
+    <a href="{% url 'logout' %}" class="btn logout-btn">
+        Log out
+    </a>
+
+</div>
+
+</body>
+</html>
