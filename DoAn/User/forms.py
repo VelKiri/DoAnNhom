@@ -16,7 +16,7 @@ class UserRegisterForm(forms.ModelForm):
         if CustomUser.objects.filter(email=email).exists():
             raise ValidationError('Email da ton tai.')
         return email
-    
+
     def clean_avatar(self):
         avatar = self.cleaned_data.get('avatar')
         if avatar:
@@ -25,7 +25,7 @@ class UserRegisterForm(forms.ModelForm):
             if not avatar.name.lower().endswith(('.png','.jpg','.jpeg')):
                 raise ValidationError("Anh phai co dinh dang jpg,jpeg hoac png")
         return avatar
-    
+
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")

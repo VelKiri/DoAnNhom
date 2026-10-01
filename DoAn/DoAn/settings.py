@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--urp(au3q(9@^!2c599hx^$v!wjl%(8pu_35dob)@a$j#a)o9p'
+SECRET_KEY = 'django-insecure-c@+2)%ixs^3hgf!73f$hg%f8u_&3sqmz3tkm)u9jk9g6x1)$d6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,7 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'User.apps.UserConfig',
+    'DoAn',
+    'User',
+    'Blog',
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -54,16 +59,14 @@ ROOT_URLCONF = 'DoAn.urls'
 
 TEMPLATES = [
     {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [
-            BASE_DIR / "User" / "html",
-        ],
-        "APP_DIRS": True,
-        "OPTIONS": {
-            "context_processors": [
-                "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
             ],
         },
     },
@@ -105,6 +108,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
 
+AUTH_USER_MODEL = 'User.CustomUser'
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -113,7 +118,34 @@ USE_I18N = True
 
 USE_TZ = True
 
-AUTH_USER_MODEL = 'user.CustomUser' 
+MEDIA_URL='/media/'
+MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_ALLOW_NONIMAGE_FILES = False
+
+CKEDITOR_CONFIGS = {
+    'default': {
+       'toolbar': [
+           ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates'],
+           ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],
+           ['Find', 'Replace', '-', 'SelectAll', '-', 'Scayt'],
+           ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'],
+           ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote'],
+           ['Link', 'Unlink', 'Anchor'],
+           ['Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar'],  # có Image
+           ['Maximize', 'ShowBlocks'],
+           ['UploadImage'],  # plugin upload ảnh
+       ],
+       'extraPlugins': ','.join([
+           'uploadimage',  # plugin upload ảnh
+           'image2',
+       ]),
+       'height': 300,
+       'width': '100%',
+   },
+}
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
@@ -124,4 +156,8 @@ STATIC_URL = 'static/'
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+MAILERS = {
+    'default': {
+        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+    },
+}
