@@ -1,0 +1,113 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="{% static 'user/style.css' %}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Nút quay lại -->
+    <a href="{% url 'register' %}" class="back">
+        ←
+    </a>
+
+    <!-- Tiêu đề -->
+    <h2>Login</h2>
+
+    <p class="description">
+        Welcome back! Please login to your account.
+    </p>
+
+    <!-- Thông báo -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Form đăng nhập -->
+    <form method="POST" action="/api/auth/login/">
+
+        {% csrf_token %}
+
+        <!-- Email -->
+        <div class="form-group">
+            <div class="input-box">
+
+                <span class="input-icon">✉</span>
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Email address"
+                    required
+                >
+
+            </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+            <div class="input-box">
+
+                <span class="input-icon">🔒</span>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    required
+                >
+
+            </div>
+        </div>
+
+        <!-- Remember me + Forgot Password -->
+        <div class="login-options">
+
+            <label>
+                <input
+                    type="checkbox"
+                    name="remember"
+                >
+                Nhớ đăng nhập
+            </label>
+
+            <a href="{% url 'password_reset' %}">
+                Quên mật khẩu?
+            </a>
+
+        </div>
+
+        <!-- Nút Login -->
+        <button class="btn" type="submit">
+            Login
+        </button>
+
+    </form>
+
+    <!-- Đăng ký -->
+    <div class="link">
+
+        Don't have an account?
+
+        <a href="{% url 'register' %}">
+            Sign Up
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>
