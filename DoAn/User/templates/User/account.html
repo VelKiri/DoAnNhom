@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<body>
+	
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="left-sidebar">
+						<h2>Account</h2>
+						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
+							
+							
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title"><a href="#">account</a></h4>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title"><a href="{% url 'my_product' %}">My product</a></h4>
+								</div>
+							</div>
+							
+						</div><!--/category-products-->
+					
+						
+					</div>
+				</div>
+				<div class="col-sm-9">
+					<div class="blog-post-area">
+						<h2 class="title text-center">Update user</h2>
+						 <div class="signup-form"><!--sign up form-->
+						<h2>New User Signup!</h2>
+						<form method="POST" enctype="multipart/form-data" action="">
+							{% csrf_token %}
+							<input type="text" name="username" value="{{ user_data.username }}" placeholder="Name"/>
+
+    						<input type="email" name="email" value="{{ user_data.email }}" placeholder="Email Address"/>
+
+    						<input type="password" name="password" placeholder="New Password"/>
+
+    						<input type="text" name="city" value="{{ user_data.city }}" placeholder="City"/>
+
+    						<input type="text" name="phone" value="{{ user_data.phone }}" placeholder="Phone"/>
+
+    						<select name="id_country">
+        						<option value="">Choose Country</option>
+
+        						{% for country in countries %}
+        						<option value="{{ country.id }}"
+            						{% if user_data.id_country.id == country.id %}
+                						selected
+            						{% endif %}
+        						>
+            						{{ country.name }}
+        						</option>
+        						{% endfor %}
+    						</select>
+
+    						<br><br>
+
+    						{% if user_data.avatar %}
+        						<img src="{{ user_data.avatar.url }}" width="100" height="100">
+        						<br><br>
+    						{% endif %}
+
+    						<input type="file" name="avatar"/>
+
+    						<br><br>
+							<button type="submit" class="btn btn-default">Signup</button>
+						</form>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	
+	
+
+  
+   
+</body>
+{% endblock %}	

@@ -1,0 +1,52 @@
+{% for item in products %}
+<div class="col-sm-4">
+	<div class="product-image-wrapper">
+		<div class="single-products">
+										
+		    <div class="productinfo text-center">
+				    <a href="{% url 'product_detail' item.id %}">
+							{% if item.image %}
+								<img src="/media/{{ item.image.0 }}" alt="" />
+							{% endif %}
+							<h2>{{ item.price }}</h2>
+							<p>{{ item.name }}</p>
+						</a>
+						<a href="#" class="btn btn-default add-to-cart" data-id="{{ item.id }}"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+					</div>
+			
+					<div class="product-overlay">
+						<div class="overlay-content">
+							<a href="{% url 'product_detail' item.id %}">
+								<h2>{{ item.price }}</h2>
+								<p>{{ item.name }}</p>
+							</a>
+							<a href="#" class="btn btn-default add-to-cart" data-id="{{ item.id }}"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+						</div>
+					</div>
+			</div>
+								
+			{% if item.status == 0 %}
+                <img src="/static/images/home/new.png" class="new" alt="">
+            {% endif %}
+
+            {% if item.status == 1 %}
+                <img src="/static/images/home/sale.png" class="new" alt="">
+            {% endif %}
+
+			<div class="choose">
+				<ul class="nav nav-pills nav-justified">
+					<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+					<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+{% empty %}
+
+<div class="col-sm-12">
+    <p style="text-align:center;">
+        Không tìm thấy sản phẩm
+    </p>
+</div>
+
+{% endfor %}
