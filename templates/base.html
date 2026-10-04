@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <title>Quan ly nguoi dung</title>
+
+    <style>
+
+        body{ font-family: Arial, sans-serif; margin:20px; }
+
+        table{ border-collapse: collapse; width:100%; }
+
+        th,td {border: 1px solid #ddd; padding:8px ;text-align: left; }
+
+        th{ background-color: #f2f2f2; }
+
+        a{margin-right:10px;}
+
+        form{margin:20px;}
+
+        input[type="text"],input[type="email"] {width: 200px ; padding: 5px; margin-bottom:10px;}
+
+        input[type="submit"] {padding: 5px 10px; background-color: #4caf50; color: white; border: none;}
+
+    </style>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Home | E-Shopper</title>
+    <link rel="stylesheet" href="{% static 'global/css/bootstrap.min.css' %}">
+    <link href="{% static 'global/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'global/css/prettyPhoto.css' %}" rel="stylesheet">
+    <link href="{% static 'global/css/price-range.css' %}" rel="stylesheet">
+    <link href="{% static 'global/css/animate.css' %}" rel="stylesheet">
+    <link href="{% static 'global/css/main.css' %}" rel="stylesheet">
+    <link href="{% static 'global/css/responsive.css' %}" rel="stylesheet">
+    <link href="{% static 'global/css/rate.css' %}" rel="stylesheet">
+    <link href="{% static 'global/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'global/css/style-pc.css' %}" rel="stylesheet">
+    <link href="{% static 'global/css/smart.css' %}" rel="stylesheet">
+    <link href="{% static 'global/css/stype-sp.css' %}" rel="stylesheet">
+    <link href="{% static 'global/css/drawer.min.css' %}" rel="stylesheet">
+    <link href="{% static 'global/css/common.css' %}" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="{% static 'global/images/ico/favicon.ico' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'global/images/ico/apple-touch-icon-144-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'global/images/ico/apple-touch-icon-114-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'global/images/ico/apple-touch-icon-72-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'global/images/ico/apple-touch-icon-57-precomposed.png' %}">
+
+
+
+</head>
+
+<body>
+    {% include 'header.html' %}
+    
+
+    
+
+    {% block content %} {% endblock %}
+
+    {% include 'footer.html' %}
+
+    <script src="{% static 'global/js/jquery.js' %}"></script>
+    <script src="{% static 'global/js/price-range.js' %}"></script>
+    <script src="{% static 'global/js/jquery.scrollUp.min.js' %}"></script>
+    <script src="{% static 'global/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'global/js/jquery.prettyPhoto.js' %}"></script>
+    <script src="{% static 'global/js/main.js' %}"></script>
+    
+    <script>
+    	$(document).ready(function(){
+		    $("a[rel^='prettyPhoto']").prettyPhoto();
+		});
+    </script>
+    {% block rate %} {% endblock %}
+</body>
+
+</html>
