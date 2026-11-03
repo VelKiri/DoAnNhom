@@ -1,28 +1,749 @@
-.rate .ratings_stars{
-    height:     15px;
-    width:      16px;
-    background: url(../images/200/start2.png) no-repeat;
-    background-size: 16px;
-    float: left !important;
-    margin-right: 4px;
+
+/* ========================================
+   LOGIN PAGE
+======================================== */
+
+#form.login-page {
+    width: 100%;
+    min-height: 75vh;
+    padding: 15px 0 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    box-sizing: border-box;
 }
-.rate .ratings_over {
-    background: url(../images/200/start-active2.png) no-repeat;
-     background-size: 16px;
+
+#form.login-page *,
+#form.login-page *::before,
+#form.login-page *::after {
+    box-sizing: border-box;
 }
-.rate .ratings_hover {
-    background: url(../images/200/start-hover2.png) no-repeat;
-    background-size: 16px;
+
+#form.login-page > .container {
+    width: 100%;
+    max-width: none;
+    margin: 0 auto;
+    padding: 0 20px;
 }
-.rate .vote{
-    display: inline-block;
+
+#form.login-page .row {
+    display: flex;
+    justify-content: center;
+    margin: 0;
 }
-.rate .rate-np {
-    font-size: 12px;
-    color: #c89805;
-    display: inline-block;
-    margin-left: 3px;
+
+#form.login-page .col-sm-4,
+#form.login-page .col-sm-4.col-sm-offset-1 {
+    float: none;
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    margin: 0;
+}
+
+#form.login-page .login-form {
+    position: relative;
+    width: 100%;
+    max-width: 683px;
+    margin: 0 auto;
+    padding: 58px 58px 47px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.09);
+}
+
+#form.login-page .back-button {
+    position: absolute;
+    top: 23px;
+    left: 58px;
+    color: #3285e8;
+    font-size: 26px;
+    text-decoration: none;
+}
+
+#form.login-page .login-form h2 {
+    margin: 0 0 26px;
+    padding: 0 0 11px;
+    border-bottom: 1px solid #f0b8d9;
+    text-align: center;
+    font-size: 31px;
+    font-weight: 400;
+    color: #777;
+    text-transform: none;
+}
+
+#form.login-page .login-description {
+    margin: 0 0 23px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: #606060;
+}
+
+#form.login-page .login-input {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    width: 100%;
+    height: 61px;
+    margin: 0 0 19px;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid transparent;
+    border-radius: 11px;
+    background: #e8effd;
+}
+
+#form.login-page .login-input:focus-within {
+    border-color: #8db4f5;
+}
+
+#form.login-page .login-input .input-icon {
+    position: static !important;
+    display: flex !important;
+    flex: 0 0 50px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 50px !important;
+    min-width: 50px !important;
+    max-width: 50px !important;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: transparent !important;
+    color: #637a9b;
+}
+
+#form.login-page .login-input .input-icon svg {
+    display: block;
+    width: 22px;
+    height: 22px;
+}
+
+#form.login-page .login-input input[type="email"],
+#form.login-page .login-input input[type="password"] {
+    position: static !important;
+    display: block !important;
+    flex: 1 1 0% !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 17px 0 4px !important;
+    border: none !important;
+    border-radius: 0 !important;
+    outline: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #182230;
+    font-size: 17px;
+    line-height: normal;
+}
+
+#form.login-page .login-options {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 13px;
+    margin: 27px 0 25px;
+    font-size: 16px;
+}
+
+#form.login-page .remember-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    color: #666;
+    font-weight: 400;
+}
+
+#form.login-page .remember-option input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: #3285e8;
+}
+
+#form.login-page .login-options a {
+    color: #3285e8;
+    text-decoration: none;
+}
+
+#form.login-page .btn-login {
+    display: block;
+    width: 100%;
+    height: 57px;
+    margin: 0;
+    padding: 0;
+    border: none !important;
+    border-radius: 11px !important;
+    background: #ff9500 !important;
+    color: #fff !important;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#form.login-page .btn-login:hover {
+    background: #ed8800 !important;
+}
+
+#form.login-page .register-text {
+    margin: 12px 0 0;
+    text-align: left;
+    color: #555;
+    font-size: 15px;
+}
+
+#form.login-page .register-text a {
+    color: #3285e8;
+    text-decoration: none;
+}
+
+
+/* ========================================
+   REGISTER PAGE - GIỮ NGUYÊN VỊ TRÍ
+======================================== */
+
+/* 1. Khóa cuộn trang và đặt ảnh nền cho trang register */
+body.register-page {
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    background: url("../images/BookBG.png") no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* 2. Ép header và thanh menu thành màu đen xuyên thấu */
+body.register-page header, 
+body.register-page .header-middle, 
+body.register-page .header-bottom, 
+body.register-page .shop-menu {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+body.register-page header a, 
+body.register-page .shop-menu ul li a, 
+body.register-page .nav navbar-nav li a {
+    color: #fff !important;
+}
+
+/* 3. Khung chứa form đăng ký căn giữa */
+.signup-wrapper {
+    height: calc(100vh - 120px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-box {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 480px;
+}
+
+/* 4. Tiêu đề form */
+.signup-box h3 {
+    font-size: 30px; 
     font-weight: bold;
-    margin-top:0px;
-    vertical-align: top;
+    text-align: center;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.signup-box p.subtitle {
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+/* 5. Định dạng ô input và icon */
+.input-group-custom {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-group-custom i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 16px;
+}
+
+.input-group-custom .form-control {
+    height: 45px;
+    padding-left: 45px !important;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    width: 100% !important;
+}
+
+/* 6. Nút Signup */
+.btn-signup {
+    width: 100%;
+    height: 45px;
+    background-color: #ff9800;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.btn-signup:hover {
+    background-color: #e68a00;
+}
+#form.register-page {
+    width: 100%;
+    min-height: 75vh;
+    padding: 15px 0 45px;
+    display: block;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+#form.register-page *,
+#form.register-page *::before,
+#form.register-page *::after {
+    box-sizing: border-box;
+}
+
+#form.register-page > .container {
+    width: 100%;
+    max-width: none;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+#form.register-page .row {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+#form.register-page .col-sm-4,
+#form.register-page .col-sm-4.col-sm-offset-1 {
+    float: none;
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    margin: 0;
+}
+
+#form.register-page .register-form {
+    position: relative;
+    top: 0px;
+    width: 100%;
+    max-width: 581px;
+    margin: 0 auto;
+    padding: 49px 49px 40px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.09);
+}
+
+#form.register-page .register-back {
+    position: absolute;
+    top: 20px;
+    left: 49px;
+    color: #3285e8;
+    font-size: 24px;
+    line-height: 1;
+    text-decoration: none;
+}
+
+#form.register-page .register-form h2 {
+    margin: 0 0 17px;
+    padding: 0 0 9px;
+    border-bottom: 1px solid #f0b8d9;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: #777;
+    text-transform: none;
+}
+
+#form.register-page .register-description {
+    margin: 0 0 19px;
+    color: #606060;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+#form.register-page .register-input {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    width: 100%;
+    height: 52px;
+    margin: 0 0 13px;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    background: #e8effd;
+}
+
+#form.register-page .register-input:focus-within {
+    border-color: #8db4f5;
+}
+
+#form.register-page .register-icon {
+    position: static !important;
+    display: flex !important;
+    flex: 0 0 43px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 43px !important;
+    min-width: 43px !important;
+    max-width: 43px !important;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: transparent !important;
+    color: #637a9b;
+    line-height: 1;
+}
+
+#form.register-page .register-icon svg {
+    display: block;
+    width: 19px;
+    height: 19px;
+}
+
+#form.register-page .register-input input[type="text"],
+#form.register-page .register-input input[type="email"],
+#form.register-page .register-input input[type="password"] {
+    position: static !important;
+    display: block !important;
+    flex: 1 1 0% !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 14px 0 4px !important;
+    border: none !important;
+    border-radius: 0 !important;
+    outline: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #182230;
+    font-family: inherit;
+    font-size: 15px;
+    line-height: normal;
+}
+
+#form.register-page .register-input input::placeholder {
+    color: #8490a3;
+    opacity: 1;
+}
+
+#form.register-page .btn-register {
+    display: block;
+    width: 100%;
+    height: 49px;
+    margin: 9px 0 0;
+    padding: 0;
+    border: none !important;
+    border-radius: 9px !important;
+    background: #ff9500 !important;
+    color: #fff !important;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#form.register-page .btn-register:hover {
+    background: #ed8800 !important;
+}
+
+#form.register-page .register-error {
+    padding: 11px 13px;
+    margin-bottom: 14px;
+    background: #fff0f0;
+    border-radius: 8px;
+    color: #b42318;
+    font-size: 13px;
+}
+
+#form.register-page .register-login-text {
+    margin: 10px 0 0;
+    text-align: left;
+    color: #555;
+    font-size: 13px;
+}
+
+#form.register-page .register-login-text a {
+    color: #3285e8;
+    text-decoration: none;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 991px) {
+    #form.login-page .login-form {
+        padding: 50px 35px 35px;
+    }
+
+    #form.login-page .back-button {
+        left: 35px;
+    }
+}
+
+@media (max-width: 600px) {
+    #form.login-page,
+    #form.register-page {
+        padding: 25px 0;
+    }
+
+    #form.login-page > .container {
+        padding: 0 16px;
+    }
+
+    #form.login-page .login-form {
+        max-width: none;
+        padding: 48px 22px 28px;
+    }
+
+    #form.login-page .back-button {
+        left: 22px;
+    }
+
+    #form.login-page .login-form h2 {
+        font-size: 25px;
+    }
+
+    #form.login-page .login-description {
+        font-size: 14px;
+    }
+
+    #form.register-page .register-form {
+        top: 0px;
+        max-width: 100%;
+        padding: 44px 22px 28px;
+    }
+
+    #form.register-page .register-back {
+        left: 22px;
+    }
+
+    #form.register-page .register-form h2 {
+        font-size: 24px;
+    }
+
+    #form.register-page .register-description {
+        font-size: 14px;
+    }
+}
+#form.login-page {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    min-height: 75vh;
+}
+
+#form.login-page > .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+}
+
+#form.login-page .row {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+#form.login-page .col-sm-4,
+#form.login-page .col-sm-4.col-sm-offset-1 {
+    float: none !important;
+    width: 100% !important;
+    max-width: 683px !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+}
+
+#form.login-page .login-form {
+    width: 100% !important;
+    max-width: 683px !important;
+    margin: 0 auto !important;
+}
+/* ========================================
+   FORGOT PASSWORD PAGE
+======================================== */
+
+#forgot-password {
+    width: 100%;
+    padding: 45px 0;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+#forgot-password *,
+#forgot-password *::before,
+#forgot-password *::after {
+    box-sizing: border-box;
+}
+
+#forgot-password .container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+#forgot-password .forgot-card {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 35px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
+}
+
+#forgot-password .forgot-card h2 {
+    margin: 0 0 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0b8d9;
+    color: #777;
+    font-size: 28px;
+    font-weight: 400;
+    text-align: center;
+    text-transform: none;
+}
+
+#forgot-password .forgot-description {
+    margin: 0 0 22px;
+    color: #606060;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+#forgot-password .forgot-message {
+    margin: 0 0 15px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #f0f5ff;
+    color: #445b7a;
+    font-size: 14px;
+}
+
+/* Ô email và icon nằm trên cùng một hàng */
+#forgot-password .forgot-input {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 100%;
+    height: 52px;
+    margin: 0 0 18px;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background: #e8effd;
+}
+
+#forgot-password .forgot-input:focus-within {
+    border-color: #8db4f5;
+}
+
+#forgot-password .forgot-icon {
+    display: flex;
+    flex: 0 0 48px;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #637a9b;
+}
+
+#forgot-password .forgot-icon svg {
+    display: block;
+    width: 21px;
+    height: 21px;
+}
+
+#forgot-password .forgot-input input[type="email"] {
+    display: block;
+    flex: 1;
+    width: 0;
+    min-width: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0 14px 0 0;
+    border: none;
+    outline: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    color: #182230;
+    font-family: inherit;
+    font-size: 15px;
+}
+
+#forgot-password .forgot-input input[type="email"]::placeholder {
+    color: #8490a3;
+    opacity: 1;
+}
+
+/* Nút Send Email bằng chiều rộng ô email */
+#forgot-password .forgot-submit {
+    display: block;
+    width: 100%;
+    height: 52px;
+    margin: 0;
+    padding: 0 15px;
+    border: none;
+    border-radius: 10px;
+    background: #ff9500;
+    color: #fff;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#forgot-password .forgot-submit:hover {
+    background: #ed8800;
+}
+
+@media (max-width: 600px) {
+    #forgot-password {
+        padding: 25px 0;
+    }
+
+    #forgot-password .container {
+        padding: 0 15px;
+    }
+
+    #forgot-password .forgot-card {
+        padding: 25px 20px;
+    }
+
+    #forgot-password .forgot-card h2 {
+        font-size: 24px;
+    }
 }

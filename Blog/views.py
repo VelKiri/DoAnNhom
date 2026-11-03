@@ -27,6 +27,51 @@ def blog_list(request):
         'paginator': paginator,
     })
 
+def blog_detail(request,id):
+
+    blog = get_object_or_404(Blog, id=id)
+
+    avg_rate = Rate.objects.filter(
+        blog=blog
+    ).aggregate(Avg('rate'))
+
+    avg = avg_rate['rate__avg']
+
+    if avg is None:
+        avg = 0
+
+    avg = round(avg)
+
+    user_rate = 0
+
+    if request.user.is_authenticated:
+
+        rate_obj = Rate.objects.filter(
+            blog=blog,
+            user=request.user
+        ).first()
+
+        if rate_obj:
+
+            user_rate = rate_obj.rate
+
+    comment = Comment.objects.filter(
+        blog_id = id,
+        level=0
+    ).order_by('-id')
+
+    return render(request, 'Blog/blog_detail.html',{
+
+        'blog': blog,
+
+        'avg': avg,
+
+        'user_rate': user_rate,
+
+        'comment' : comment
+
+    })
+
 def search_view(request):
 
     keyword = request.GET.get("name", "")
@@ -141,4 +186,111 @@ def ajax_search_advanced_view(request):
         {
             "products": products,
         }
-    ) 
+    )
+
+@csrf_exempt
+def save_rating(request):
+
+    if request.method == 'POST':
+
+        blog_id = request.POST.get('blog_id')
+
+        rate = request.POST.get('rate')
+
+        user_id = request.POST.get('user_id')
+        print(user_id)
+
+        try:
+
+            blog = Blog.objects.get(id=blog_id)
+
+            old_rate = Rate.objects.filter(
+                blog_id=blog_id,
+                user_id=user_id
+            ).first()
+
+            if old_rate:
+
+                old_rate.rate = int(rate)
+
+                old_rate.save()
+
+            else:
+
+                Rate.objects.create(
+                    blog_id=blog_id,
+                    rate=int(rate),
+                    user_id=user_id
+                )
+
+            avg = Rate.objects.filter(
+                blog_id=blog_id
+            ).aggregate(Avg('rate'))
+
+            return JsonResponse({
+
+                'success': True,
+
+                'avg': round(avg['rate__avg'],1)
+
+            })
+
+        except Blog.DoesNotExist:
+
+            return JsonResponse({
+
+                'success': False,
+
+                'error': 'Blog not found'
+
+            })
+
+    return JsonResponse({
+
+        'success': False,
+
+        'error': 'Invalid request'
+
+    })
+
+@csrf_exempt
+def save_comment(request):
+    if request.method== "POST":
+        blog_id= request.POST.get('blog_id')
+        comment = request.POST.get('comment')
+        level = request.POST.get('level',0)
+        parent_id = request.POST.get('parent_id')
+        if level is None:
+            level = 0
+        if request.user.is_authenticated:
+            user= request.user
+            new_comment = Comment.objects.create(
+                blog_id=blog_id,
+                comment=comment,
+                user=user,
+                level=level,
+                parent_id = parent_id if parent_id else None
+            )
+
+            data ={
+                'id':new_comment.id,
+                'comment':new_comment.comment,
+                'author_name':user.username,
+                'author_id':user.id,
+                'level': new_comment.level,
+                'parent_id': parent_id
+            }
+            return JsonResponse({
+                'success':True,
+                'data':data
+            })
+        
+        return JsonResponse({
+            'success':False,
+            'error':"Vui long dang nhap"
+        })
+    
+    return JsonResponse({
+        'success':False,
+        'error':'Invalid request'
+    }) 
