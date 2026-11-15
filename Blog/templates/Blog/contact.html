@@ -1,0 +1,462 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Contact | AcademicShare{% endblock %}
+
+{% block content %}
+
+<style>
+    /* Nền trang Contact: ảnh bàn làm việc học thuật + lớp phủ tối cùng tông với Home */
+    html body {
+        background-image:
+            linear-gradient(rgba(20, 33, 61, 0.62), rgba(20, 33, 61, 0.62)),
+            url("{% static 'global/images/ContactBG.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+    }
+
+    /* Tiêu đề trang */
+    body .contact-page-title {
+        display: inline-block;
+        max-width: 100%;
+        word-break: break-word;
+        color: #F6E7C1;
+        font-family: var(--serif);
+        font-size: clamp(28px, 3.6vw, 38px);
+        font-weight: 700;
+        letter-spacing: -0.005em;
+        text-align: left;
+        margin: 44px 0 24px;
+        padding: 14px 30px 14px 24px;
+        background: linear-gradient(120deg, rgba(11, 122, 117, 0.92), rgba(20, 33, 61, 0.90));
+        border-left: 5px solid var(--marker);
+        border-radius: 0 12px 12px 0;
+        box-shadow: 0 10px 28px rgba(20, 33, 61, 0.28);
+        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+    }
+
+    /* Lời mở đầu dưới tiêu đề */
+    .contact-intro {
+        color: #E9EEF7;
+        font-family: var(--sans);
+        font-size: 15.5px;
+        line-height: 1.7;
+        max-width: 720px;
+        margin: 0 0 32px;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+    }
+    .contact-intro strong { color: var(--marker); font-weight: 600; }
+
+    /* Bố cục 2 cột: thông tin liên hệ / form */
+    .contact-layout {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 26px;
+        margin-bottom: 60px;
+    }
+    @media (min-width: 992px) {
+        .contact-layout { grid-template-columns: 360px 1fr; align-items: start; }
+    }
+
+    /* Cột thông tin liên hệ */
+    .contact-info-panel {
+        background-color: rgba(255, 255, 255, 0.96);
+        background-image: linear-gradient(90deg, var(--marker) 0, var(--marker) 72px, var(--accent) 72px, var(--accent) 100%);
+        background-size: 100% 3px;
+        background-repeat: no-repeat;
+        background-position: top left;
+        border: 1px solid rgba(20, 33, 61, 0.08);
+        border-radius: 10px;
+        box-shadow: 0 1px 2px rgba(20, 33, 61, 0.10), 0 16px 36px rgba(20, 33, 61, 0.16);
+        padding: 30px 30px 26px;
+    }
+    .contact-info-panel h2 {
+        position: relative;
+        background: none;
+        color: var(--ink);
+        font-family: var(--serif);
+        font-weight: 700;
+        font-size: 22px;
+        text-transform: none;
+        text-align: left;
+        padding: 0 0 14px;
+        margin: 0 0 22px;
+        border: 0;
+        border-bottom: 1px solid var(--line);
+    }
+    .contact-info-panel h2:after {
+        content: "";
+        position: absolute;
+        left: 0; bottom: -1px;
+        width: 64px; height: 3px;
+        background: var(--accent);
+    }
+
+    .contact-info-list { list-style: none; margin: 0; padding: 0; }
+    .contact-info-list li {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        padding: 14px 0;
+        border-bottom: 1px dashed var(--line);
+    }
+    .contact-info-list li:last-child { border-bottom: 0; }
+    .contact-info-list .ico {
+        flex: 0 0 auto;
+        width: 38px; height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--chip);
+        border-radius: 50%;
+        color: var(--accent);
+    }
+    .contact-info-list .ico svg { width: 18px; height: 18px; }
+    .contact-info-list li > div {
+        text-align: left;
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+    .contact-info-list .label {
+        display: block;
+        text-align: left;
+        color: var(--muted);
+        font-family: var(--sans);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+        margin-bottom: 2px;
+    }
+    .contact-info-list .value {
+        display: block;
+        text-align: left;
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 14.5px;
+        font-weight: 500;
+        line-height: 1.55;
+        word-break: break-word;
+    }
+    .contact-info-list .value a { color: var(--ink); text-decoration: none; }
+    .contact-info-list .value a:hover { color: var(--accent); text-decoration: underline; }
+
+    /* Mạng xã hội */
+    .contact-social { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
+    .contact-social .label {
+        display: block;
+        color: var(--muted);
+        font-family: var(--sans);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+    .contact-social .socials { display: flex; gap: 10px; }
+    .contact-social a {
+        width: 36px; height: 36px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--chip);
+        border-radius: 50%;
+        color: var(--ink);
+        transition: background .15s ease, color .15s ease;
+    }
+    .contact-social a:hover { background: var(--accent); color: #fff; }
+    .contact-social a svg { width: 16px; height: 16px; }
+
+    /* Cột form */
+    .contact-form-panel {
+        background-color: rgba(255, 255, 255, 0.96);
+        background-image: linear-gradient(90deg, var(--marker) 0, var(--marker) 72px, var(--accent) 72px, var(--accent) 100%);
+        background-size: 100% 3px;
+        background-repeat: no-repeat;
+        background-position: top left;
+        border: 1px solid rgba(20, 33, 61, 0.08);
+        border-radius: 10px;
+        box-shadow: 0 1px 2px rgba(20, 33, 61, 0.10), 0 16px 36px rgba(20, 33, 61, 0.16);
+        padding: 30px 34px 28px;
+    }
+    .contact-form-panel h2 {
+        position: relative;
+        background: none;
+        color: var(--ink);
+        font-family: var(--serif);
+        font-weight: 700;
+        font-size: 22px;
+        text-transform: none;
+        text-align: left;
+        padding: 0 0 14px;
+        margin: 0 0 22px;
+        border: 0;
+        border-bottom: 1px solid var(--line);
+    }
+    .contact-form-panel h2:after {
+        content: "";
+        position: absolute;
+        left: 0; bottom: -1px;
+        width: 64px; height: 3px;
+        background: var(--accent);
+    }
+
+    .contact-form .form-row {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0 16px;
+    }
+    @media (min-width: 768px) {
+        .contact-form .form-row.two-col { grid-template-columns: 1fr 1fr; }
+    }
+    .contact-form .field { margin-bottom: 14px; }
+    .contact-form label {
+        display: block;
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 13.5px;
+        font-weight: 600;
+        margin-bottom: 6px;
+    }
+    .contact-form label .req { color: #D64545; }
+    .contact-form input[type="text"],
+    .contact-form input[type="email"],
+    .contact-form textarea {
+        width: 100%;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        color: var(--text);
+        font-family: var(--sans);
+        font-size: 14.5px;
+        padding: 0 14px;
+        height: 44px;
+        box-shadow: none;
+        box-sizing: border-box;
+    }
+    .contact-form textarea {
+        padding: 12px 14px;
+        height: auto;
+        min-height: 160px;
+        resize: vertical;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+        border-color: var(--accent);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(11, 122, 117, 0.16);
+    }
+    .contact-form .btn-send {
+        background: var(--ink);
+        color: #fff;
+        border: 0;
+        border-radius: 8px;
+        font-family: var(--sans);
+        font-size: 14.5px;
+        font-weight: 600;
+        padding: 12px 30px;
+        cursor: pointer;
+        margin-top: 6px;
+        transition: background .15s ease;
+    }
+    .contact-form .btn-send:hover,
+    .contact-form .btn-send:focus { background: var(--accent); }
+
+    .contact-form .form-hint {
+        color: var(--muted);
+        font-family: var(--sans);
+        font-size: 12.5px;
+        margin-top: 10px;
+        line-height: 1.5;
+    }
+
+    /* Bản đồ nhỏ dưới form */
+    .contact-map {
+        margin-top: 18px;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        box-shadow: 0 8px 22px rgba(20, 33, 61, 0.18);
+        line-height: 0;
+    }
+    .contact-map iframe {
+        width: 100%;
+        height: 240px;
+        border: 0;
+        display: block;
+        filter: grayscale(.2) contrast(.95);
+    }
+</style>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <h2 class="contact-page-title">Get in Touch</h2>
+
+                <p class="contact-intro">
+                    Have a question, found a bug, or want to contribute a document to
+                    <strong>AcademicShare</strong>? Drop us a message using the form below
+                    and our team will reply within 1&ndash;2 working days. You can also reach
+                    us through the contact details on the left.
+                </p>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="flash-msg {{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="contact-layout">
+
+                    <!-- ===== Cột trái: thông tin liên hệ ===== -->
+                    <aside class="contact-info-panel">
+                        <h2>Contact Information</h2>
+                        <ul class="contact-info-list">
+                            <li>
+                                <span class="ico" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                        <circle cx="12" cy="10" r="3"/>
+                                    </svg>
+                                </span>
+                                <div>
+                                    <span class="label">Address</span>
+                                    <span class="value">
+                                        120 Hoang Minh Thao, Hoa Khanh,<br>
+                                        Lien Chieu, Da Nang City, Vietnam
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ico" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>
+                                    </svg>
+                                </span>
+                                <div>
+                                    <span class="label">Phone</span>
+                                    <span class="value">
+                                        <a href="tel:+841234567889">+84 1234 567 889</a>
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ico" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="5" width="18" height="14" rx="2"/>
+                                        <path d="m3 7 9 6 9-6"/>
+                                    </svg>
+                                </span>
+                                <div>
+                                    <span class="label">Email</span>
+                                    <span class="value">
+                                        <a href="mailto:support@acadeshare.edu">support@acadeshare.edu</a><br>
+                                        <a href="mailto:admin@acadeshare.edu">admin@acadeshare.edu</a>
+                                    </span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ico" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="9"/>
+                                        <path d="M12 7v5l3 2"/>
+                                    </svg>
+                                </span>
+                                <div>
+                                    <span class="label">Office hours</span>
+                                    <span class="value">
+                                        Monday &ndash; Friday<br>
+                                        08:00 &ndash; 17:00 (ICT)
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="contact-social">
+                            <span class="label">Follow us</span>
+                            <div class="socials">
+                                <a href="#" title="Facebook" aria-label="Facebook">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg>
+                                </a>
+                                <a href="#" title="X / Twitter" aria-label="X">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                </a>
+                                <a href="#" title="GitHub" aria-label="GitHub">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.09.66-.22.66-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8c.85 0 1.71.11 2.51.34 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.16.58.67.48A10 10 0 0 0 22 12c0-5.52-4.48-10-10-10z"/></svg>
+                                </a>
+                                <a href="#" title="YouTube" aria-label="YouTube">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.12-2.12C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.53A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.12 2.12c1.88.53 9.38.53 9.38.53s7.5 0 9.38-.53a3 3 0 0 0 2.12-2.12A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6z"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- ===== Cột phải: form liên hệ ===== -->
+                    <div class="contact-form-panel">
+                        <h2>Send us a message</h2>
+
+                        <form method="POST" class="contact-form" novalidate>
+                            {% csrf_token %}
+
+                            <div class="form-row two-col">
+                                <div class="field">
+                                    <label for="id_name">Your name <span class="req">*</span></label>
+                                    <input type="text" id="id_name" name="name"
+                                           placeholder="Nguyen Van A"
+                                           value="{{ request.POST.name }}"
+                                           required>
+                                </div>
+                                <div class="field">
+                                    <label for="id_email">Email <span class="req">*</span></label>
+                                    <input type="email" id="id_email" name="email"
+                                           placeholder="you@example.com"
+                                           value="{{ request.POST.email }}"
+                                           required>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label for="id_subject">Subject <span class="req">*</span></label>
+                                <input type="text" id="id_subject" name="subject"
+                                       placeholder="What is this about?"
+                                       value="{{ request.POST.subject }}"
+                                       required>
+                            </div>
+
+                            <div class="field">
+                                <label for="id_message">Message <span class="req">*</span></label>
+                                <textarea id="id_message" name="message"
+                                          placeholder="Tell us more about your question, feedback or report..."
+                                          required>{{ request.POST.message }}</textarea>
+                            </div>
+
+                            <button type="submit" class="btn-send">
+                                <i class="fa fa-paper-plane"></i> Send Message
+                            </button>
+
+                            <p class="form-hint">
+                                Your information is only used to reply to your request
+                                and is never shared with third parties.
+                            </p>
+                        </form>
+
+                        <div class="contact-map">
+                            <iframe
+                                src="https://www.openstreetmap.org/export/embed.html?bbox=108.1350%2C16.0390%2C108.1520%2C16.0570&layer=mapnik&marker=16.0471%2C108.1460"
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                                title="AcademicShare office location"></iframe>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
