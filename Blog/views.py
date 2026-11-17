@@ -47,8 +47,8 @@ def contact(request):
                         subject=f'[AcademicShare Contact] {subject}',
                         message=full_message,
                         from_email=settings.DEFAULT_FROM_EMAIL,
-                        recipient_list=[getattr(settings, 'CONTACT_EMAIL', 'admin@acadshare.local')],
-                        fail_silently=True,
+                        recipient_list=[settings.CONTACT_EMAIL],
+                        fail_silently=False,
                     )
             except Exception:
                 pass
