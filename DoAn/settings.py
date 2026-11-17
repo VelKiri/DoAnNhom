@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'Blog',
     'ckeditor',
     'ckeditor_uploader',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -152,5 +153,49 @@ CKEDITOR_CONFIGS = {
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static'
+    BASE_DIR / 'static',
 ]
+LOGIN_URL = '/User/login/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+
+
+# ============================================================
+# EMAIL - gui tin nhan tu form Contact
+# ============================================================
+# Email NHAN tin nhan tu form lien he:
+CONTACT_EMAIL = 'tuyen03052006@gmail.com'
+
+# Email GUI (Gmail that) + App Password 16 ky tu.
+# Cach lay App Password:
+#   1. Vao https://myaccount.google.com/security
+#   2. Bat 'Xac minh 2 buoc' (2-Step Verification)
+#   3. Vao https://myaccount.google.com/apppasswords
+#   4. Tao App Password moi (App name: Django) -> copy 16 ky tu
+#   5. Dan vao EMAIL_HOST_PASSWORD ben duoi, doi USE_REAL_SMTP = True,
+#      roi restart runserver.
+EMAIL_HOST_USER = 'tuyen03052006@gmail.com'
+EMAIL_HOST_PASSWORD = ''
+
+USE_REAL_SMTP = False   # <- doi thanh True sau khi dien App Password
+
+if USE_REAL_SMTP and EMAIL_HOST_USER and EMAIL_HOST_PASSWORD:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = f'AcademicShare <{EMAIL_HOST_USER}>'
+else:
+    # Chua cau hinh SMTP: in email ra cua so runserver (che do dev)
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    DEFAULT_FROM_EMAIL = 'AcademicShare <noreply@academicshare.local>'
